@@ -1,0 +1,5 @@
+﻿Id,FirstName,LastName,Amount,Precision,Access,Capacity
+1001,Sasha,Pfifer,10.50,1.01,TRUE,100
+1002,Danna,Riveti,20.50,1.02,FALSE,200
+1003,Daniel,Kruz,30.50,1.09,TRUE,300
+1004,Stanley,Rocco,40.50,1.01,TRUE,400

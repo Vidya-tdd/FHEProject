@@ -3,7 +3,8 @@ import tenseal as ts
 
 def fetch_data(df):
     print(df.head())
-    v3 = df.values.flatten()
+    v3 = df['Amount'].values.flatten()
+    print(v3)
     return v3
 
 def setup_tenseal(vector):
@@ -18,33 +19,31 @@ def setup_tenseal(vector):
 
     v1 = [0, 1, 2, 3, 4]
     v2 = [4, 3, 2, 1, 0]
-    v3 = [200, 1.01]
-    # Filter numeric values only
-    numeric_values_v4 = [float(x) for x in vector if isinstance(x,(int,float)) or str(x).replace('.', '', 1).isdigit()]
-    print(numeric_values_v4)
+    v4 = [10.10, 20.10, 30.10, 40.10]
 
     # encrypted vectors
     enc_v1 = ts.ckks_vector(context, v1)
     enc_v2 = ts.ckks_vector(context, v2)
-    enc_v3 = ts.ckks_vector(context, v3)
-    enc_v4 = ts.ckks_vector(context, numeric_values_v4)
+    enc_v3 = ts.ckks_vector(context, vector)
+    enc_v4 = ts.ckks_vector(context, v4)
+
 
     #addition of data point float
-    resultData= enc_v3.add(enc_v4)
-    resultData.decrypt()
-    print(resultData)
+    resultData= enc_v3 + enc_v4
+    ultimate_result_float = resultData.decrypt()
+    print(ultimate_result_float)
 
 
     #addition
     result = enc_v1 + enc_v2
-    result.decrypt() # ~ [4, 4, 4, 4, 4]
-    print(result)
+    result_add = result.decrypt() # ~ [4, 4, 4, 4, 4]
+    print(result_add)
 
 
     #multiplication
     result = enc_v1 * enc_v2
-    result.decrypt() # ~ [4, 4, 4, 4, 4]
-    print(result)
+    result_multiply = result.decrypt() # ~ [4, 4, 4, 4, 4]
+    print(result_multiply)
 
     result = enc_v1.dot(enc_v2)
     result.decrypt() # ~ [10]
